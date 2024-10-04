@@ -18,8 +18,8 @@ import LandingPage from './pages/LandingPage.jsx';
 // import { PersistGate } from 'redux-persist/integration/react';
 
 import NotFoundPage from './pages/NotFoundPage.jsx';
-import CodeEditorWindow from './pages/CodeEditorWindow.jsx';
 import CodingPage from './pages/CodingPage.jsx';
+import { ChakraProvider } from '@chakra-ui/react';
 
 
 const router = createBrowserRouter(
@@ -27,7 +27,6 @@ const router = createBrowserRouter(
     <Route path='/' element={<Layout/>}>
         <Route index element={<LandingPage/>} />
         {/* <Route path='/problems' element={<ProblemPage/>} /> */}
-        <Route path='/codeEditor' element={<CodeEditorWindow/>} />
         
         <Route path='*' element={<NotFoundPage/>} />
         <Route path='/codingpage' element={<CodingPage/>} />
@@ -39,7 +38,10 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
   // <Provider store={store} >
   //   <PersistGate loading={null} persistor={persistor} >
-      <RouterProvider router={router} />
+  <ChakraProvider>
+
+    <RouterProvider router={router} />
+  </ChakraProvider>
   //   </PersistGate>
   // </Provider>
 )

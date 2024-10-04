@@ -7,11 +7,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import cpVid from '../assets/codeplay.gif';
 
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
 
 const LandingPage = () => {
+
+  const navigate = useNavigate();
+
+  const toPage = () => {
+      navigate("/codingpage")
+  }
 
   return (
     <>
@@ -23,7 +30,11 @@ const LandingPage = () => {
             <p  className="text-[1vw] text-white max-sm:text-[8vh]" >A fun to learn and play gamified coding platform</p>
 
             <div className="btn-get h-[10vh] w-full absolute bottom-[16%] bg--600 flex justify-center items-center ">
-                <button className="get-button py-[0.3vh] px-[0.3vw] w-[13vw]  bg-yellow-500 flex justify-between items-center rounded-full ">
+                <button
+                onClick={() => {
+                  toPage()
+                }}
+                className="get-button py-[0.3vh] px-[0.3vw] w-[13vw]  bg-yellow-500 flex justify-between items-center rounded-full ">
                     <p className="font-bold text-[1vw] w-[80%] bg--700 h-full">GET STARTED</p>
                     <div className="circle p-[0.8vw] rounded-full bg-yellow-600 flex justify-center items-center ">
                     <FaArrowRight size={20} />
