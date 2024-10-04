@@ -52,7 +52,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar z-[7000] h-[15vh] w-full bg--500 flex justify-between items-center fixed top-0">
+      <div className="navbar z-[7000] h-[10vh] w-full bg--500 flex justify-between items-center fixed top-0">
         <div className="nav-left text-[1.5vw] text-white h-full w-[10%] max-sm:w-[40%] bg--700 flex justify-center items-center ">
             <h1>CP</h1>
         </div>
@@ -60,7 +60,7 @@ const Navbar = () => {
 
           <button
             onClick={() => toPage("/register")}
-            className="menuBtn z-[7000] px-[2vw] max-sm:px-[5vw] max-sm:py-[1.5vh] bg-white py-[1.5vh] rounded-full text-[#181818] text-[1vw]">
+            className="menuBtn z-[7000] px-[2vw] max-sm:px-[5vw] max-sm:py-[1.5vh] bg-white py-[1.5vh] rounded-full text-[#181818] text-[0.9vw]">
               <h1 className="max-sm:text-[1.5vh]">REGISTER</h1>
           </button>
         </div>
