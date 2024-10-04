@@ -59,6 +59,7 @@ function EditorWindow({
 
       {activeTab === 1 ? (
         <Editor
+        
           theme="vs-dark"
           height="88%"
           width="100%"
