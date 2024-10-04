@@ -1,8 +1,40 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Box } from "@chakra-ui/react";
 import EditorWindow from "./Windows/EditorWindow";
+import { useState,useRef } from "react";
+import { executeCode } from "../api/api.js";
+
+import game from "../assets/game.png"
 
 const CodingPage = () => {
+
+  const [language, setLanguage] = useState("python");
+  const [output, setOutput] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState(1); // Manage active tab state
+
+  const editorRef = useRef(null); // Define editorRef here
+
+  const runCode = async () => {
+    if (!editorRef.current) return;
+
+    const sourceCode = editorRef.current.getValue();
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { run: result } = await executeCode(language, sourceCode);
+      setOutput(result.output);
+      setActiveTab(2); // Switch to OUTPUT tab
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  
+
   return (
     <>
       <div className=" bg--500 min-h-auto h-[100vh] w-[100vw] flex justify-center items-end px-[2vw] py-[1vh]">
@@ -12,15 +44,29 @@ const CodingPage = () => {
           </div>
           <div className="bottom w-[95%] h-[42%] bg-[#243346] flex justify-center items-end"></div>
         </div>
+
         <div className="right-box w-[54%] h-[90vh] bg-[#243346] flex flex-col gap-3 justify-center items-center">
-          <div className="top w-[95%] h-[65%] bg-[#2D4058] flex justify-center items-end">
-            <Box h="100%" w="100%" bg="#daf5ed" color="gray.500" px={6} py={8}>
-              <EditorWindow />
+          <div className="top w-[98%] h-[65%] bg-[#2D4058] flex flex-col justify-center items-end">
+            
+          <Box h="100%" w="100%" bg="#" color="gray.500">
+              <EditorWindow
+                language={language}
+                setLanguage={setLanguage}
+                output={output}
+                isLoading={isLoading}
+                error={error}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                editorRef={editorRef}
+              />
             </Box>
           </div>
-          <div className="bottom w-[95%] h-[30%] bg-[#2D4058] flex justify-end items-end">
+
+          <div className="bottom w-[98%] h-[30%] bg-[#2D4058] flex justify-end items-end">
             <div className="flex justify-end items-end p-5 gap-5">
-              <button className="get-button py-[0.3vh] px-[0.1vw] w-[8vw] bg-blue-500 flex justify-between items-center rounded-full ">
+              <button
+                onClick={runCode} 
+              className="run-button py-[0.3vh] px-[0.1vw] w-[8vw] bg-blue-500 flex justify-between items-center rounded-full ">
                 <p className="font-bold text-[1vw] w-[80%] bg--700 h-full">
                   RUN
                 </p>

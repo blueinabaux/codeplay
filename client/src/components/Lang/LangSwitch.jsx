@@ -16,9 +16,9 @@ const LangSwitch = ({ language, onSelect }) => {
 
   return (
 
-    <Box ml={2} mb={4}>
+    <Box  mb={2}  bgColor="">
       <Menu>
-        <MenuButton as={Button}>{language}</MenuButton>
+        <MenuButton py="1vh" px="2vw"  as={Button}>{language}</MenuButton>
         <MenuList>
           {languages.map(([language, version]) => (
             <MenuItem key={language} onClick={() => onSelect(language)}>
