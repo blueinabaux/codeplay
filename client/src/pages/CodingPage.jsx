@@ -5,16 +5,20 @@ import { useState,useRef } from "react";
 import { executeCode } from "../api/api.js";
 
 import game from "../assets/game.png"
+import { useDispatch } from "react-redux";
+import { setCode } from "../redux/slices/codeSlice.js";
 
 const CodingPage = () => {
+
+  const dispatch = useDispatch();
 
   const [language, setLanguage] = useState("python");
   const [output, setOutput] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState(1); // Manage active tab state
+  const [activeTab, setActiveTab] = useState(1); 
 
-  const editorRef = useRef(null); // Define editorRef here
+  const editorRef = useRef(null); 
 
   const runCode = async () => {
     if (!editorRef.current) return;
@@ -25,7 +29,11 @@ const CodingPage = () => {
     try {
       const { run: result } = await executeCode(language, sourceCode);
       setOutput(result.output);
-      setActiveTab(2); // Switch to OUTPUT tab
+      setActiveTab(2);
+      dispatch(
+        setCode({code :sourceCode})
+      );
+      console.log("SOURCE CODE: ", sourceCode);
     } catch (err) {
       setError(err);
     } finally {
@@ -33,7 +41,6 @@ const CodingPage = () => {
     }
   };
 
-  
 
   return (
     <>

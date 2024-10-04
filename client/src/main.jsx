@@ -13,9 +13,9 @@ import Layout from './layout/Layout.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 
 
-// import {Provider} from 'react-redux';
-// import { store, persistor } from './redux/store.js';
-// import { PersistGate } from 'redux-persist/integration/react';
+import {Provider} from 'react-redux';
+import { store, persistor } from './redux/store.js';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import CodingPage from './pages/CodingPage.jsx';
@@ -36,12 +36,11 @@ const router = createBrowserRouter(
 )
 
 createRoot(document.getElementById('root')).render(
-  // <Provider store={store} >
-  //   <PersistGate loading={null} persistor={persistor} >
+  <Provider store={store} >
+    <PersistGate loading={null} persistor={persistor} >
   <ChakraProvider>
-
     <RouterProvider router={router} />
   </ChakraProvider>
-  //   </PersistGate>
-  // </Provider>
+     </PersistGate>
+   </Provider>
 )
