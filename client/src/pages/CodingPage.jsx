@@ -1,16 +1,28 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Box } from "@chakra-ui/react";
 import EditorWindow from "./Windows/EditorWindow";
-import { useState, useRef } from "react";
+import { useState,useRef, useEffect } from "react";
 import { executeCode } from "../api/api.js";
 
 import game from "../assets/game.png"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCode } from "../redux/slices/codeSlice.js";
 
 const CodingPage = () => {
 
   const dispatch = useDispatch();
+  const { code } = useSelector((state) => state.code);
+
+  console.log("Extracted Code: ", code?.code);
+
+  const editorRef = useRef(null); 
+
+  
+  useEffect(() => {
+    if (editorRef.current && code?.code) {
+      editorRef.current.setValue(code.code);
+    }
+  }, [code]);
 
   const [language, setLanguage] = useState("python");
   const [output, setOutput] = useState(null);
@@ -18,23 +30,19 @@ const CodingPage = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState(1); 
 
-  const editorRef = useRef(null); 
 
   const runCode = async () => {
     if (!editorRef.current) return;
 
-    const sourceCode = editorRef.current.getValue();
+    let sourceCode = editorRef.current.getValue();
     setIsLoading(true);
     setError(null);
     try {
       const { run: result } = await executeCode(language, sourceCode);
       setOutput(result.output);
       setActiveTab(2);
-      dispatch(
-        setCode({code :sourceCode})
-      );
-      console.log("SOURCE CODE: ", sourceCode);
-    } catch (err) {
+      dispatch(setCode({ code: sourceCode })); 
+    }  catch (err) {
       setError(err);
     } finally {
       setIsLoading(false);
@@ -85,8 +93,9 @@ const CodingPage = () => {
 
         <div className="right-box w-[54%] h-[90vh] bg-[#243346] flex flex-col gap-3 justify-center items-center">
           <div className="top w-[98%] h-[65%] bg-[#2D4058] flex flex-col justify-center items-end">
-            <Box h="100%" w="100%" bg="#" color="gray.500">
-              <EditorWindow
+            
+          <Box h="100%" w="100%" bg="#" color="gray.500">
+          <EditorWindow
                 language={language}
                 setLanguage={setLanguage}
                 output={output}
@@ -95,6 +104,7 @@ const CodingPage = () => {
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
                 editorRef={editorRef}
+                initialCode={code?.code || ""}
               />
             </Box>
           </div>

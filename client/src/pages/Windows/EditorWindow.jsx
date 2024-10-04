@@ -4,7 +4,6 @@ import LangSwitch from "../../components/Lang/LangSwitch";
 import { CODE_TEMPLATES } from "../../../constants";
 import Output from "./Output";
 
-const INITIAL_VALUE = "// some comment";
 
 function EditorWindow({
   language,
@@ -15,13 +14,24 @@ function EditorWindow({
   error,
   activeTab,
   setActiveTab,
+  initialCode,
 }) {
-  const [value, setValue] = useState(INITIAL_VALUE);
-  const [code, setCode] = useState(CODE_TEMPLATES.python);
+
+  
+  const [value, setValue] = useState(initialCode || CODE_TEMPLATES.python);
+
+  useEffect(() => {
+    if (editorRef.current && initialCode) {
+      editorRef.current.setValue(initialCode);
+    }
+  }, [initialCode]);
 
   const handleMount = (editor) => {
     editorRef.current = editor;
     editor.focus();
+    if (initialCode) {
+      editor.setValue(initialCode);
+    }
   };
 
   const handleChange = (newValue) => {
@@ -30,7 +40,7 @@ function EditorWindow({
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
-    setCode(CODE_TEMPLATES[newLanguage]);
+    setValue(CODE_TEMPLATES[newLanguage]);
   };
 
   return (
@@ -59,16 +69,14 @@ function EditorWindow({
 
       {activeTab === 1 ? (
         <Editor
-        
-          theme="vs-dark"
-          height="88%"
-          width="100%"
-          language={language}
-          defaultValue={INITIAL_VALUE}
-          onMount={handleMount}
-          value={code}
-          onChange={handleChange}
-        />
+        theme="vs-dark"
+        height="88%"
+        width="100%"
+        language={language}
+        onMount={handleMount}
+        value={value}
+        onChange={handleChange}
+      />
       ) : (
         <Output output={output} isLoading={isLoading} error={error} />
       )}
