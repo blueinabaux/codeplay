@@ -1,11 +1,13 @@
 import { FaArrowRight } from "react-icons/fa";
-
+import game from "../assets/game.png"
 const CodingPage = () => {
   return (
     <>
       <div className=" bg--500 min-h-auto h-[100vh] w-[100vw] flex justify-center items-end px-[2vw] py-[1vh]">
         <div className="left-box w-[46%] h-[90vh] bg--300 flex flex-col justify-between items-center">
-          <div className="top w-[95%] h-[56%] bg-pink-300 flex justify-center items-end"></div>
+          <div className="top w-[95%] h-[56%] bg--300 flex justify-center items-end">
+            <img src={game} alt="" className="h-full w-full object-cover" />
+          </div>
           <div className="bottom w-[95%] h-[42%] bg-[#243346] flex justify-center items-end"></div>
         </div>
         <div className="right-box w-[54%] h-[90vh] bg-[#243346] flex flex-col gap-3 justify-center items-center">
