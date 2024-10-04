@@ -18,13 +18,17 @@ import LandingPage from './pages/LandingPage.jsx';
 // import { PersistGate } from 'redux-persist/integration/react';
 
 import NotFoundPage from './pages/NotFoundPage.jsx';
-import CodingPage from './pages/Codingpage.jsx';
+import CodeEditorWindow from './pages/CodeEditorWindow.jsx';
+import CodingPage from './pages/CodingPage.jsx';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
         <Route index element={<LandingPage/>} />
         {/* <Route path='/problems' element={<ProblemPage/>} /> */}
+        <Route path='/codeEditor' element={<CodeEditorWindow/>} />
+        
         <Route path='*' element={<NotFoundPage/>} />
         <Route path='/codingpage' element={<CodingPage/>} />
 

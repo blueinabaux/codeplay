@@ -1,5 +1,7 @@
 import { FaArrowRight } from "react-icons/fa";
-import game from "../assets/game.png"
+import { Box } from "@chakra-ui/react";
+import EditorWindow from "./Windows/EditorWindow";
+
 const CodingPage = () => {
   return (
     <>
@@ -11,10 +13,11 @@ const CodingPage = () => {
           <div className="bottom w-[95%] h-[42%] bg-[#243346] flex justify-center items-end"></div>
         </div>
         <div className="right-box w-[54%] h-[90vh] bg-[#243346] flex flex-col gap-3 justify-center items-center">
-            <div className="head h-[2%]">
-
-            </div>
-          <div className="top w-[95%] h-[60%] bg-[#2D4058] flex justify-center items-end"></div>
+          <div className="top w-[95%] h-[65%] bg-[#2D4058] flex justify-center items-end">
+            <Box h="100%" w="100%" bg="#daf5ed" color="gray.500" px={6} py={8}>
+              <EditorWindow />
+            </Box>
+          </div>
           <div className="bottom w-[95%] h-[30%] bg-[#2D4058] flex justify-end items-end">
             <div className="flex justify-end items-end p-5 gap-5">
               <button className="get-button py-[0.3vh] px-[0.1vw] w-[8vw] bg-blue-500 flex justify-between items-center rounded-full ">
